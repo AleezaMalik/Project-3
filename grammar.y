@@ -142,6 +142,12 @@ a_expr : a_expr T_ADD a_term
           res = make_temp (symtab, $1->datatype);
           itab_instruction_add (itab, OP_SUB, res->addr, $1->addr, $3->addr);
         }
+//I added the case for float since int is above
+if ($1->datatype == DTYPE_FLOAT)
+        {
+          res = make_temp (symtab, $1->datatype);
+          itab_instruction_add (itab, OP_FSUB, res->addr, $1->addr, $3->addr);
+        }
         $$ = res;
         #ifdef _SMP_DEBUG_
         cout << "On a_expr (2)\n";
