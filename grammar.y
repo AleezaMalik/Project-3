@@ -120,6 +120,8 @@ a_expr : a_expr T_ADD a_term
         {
           // TASK: Modify this semantic action to support both DTYPE_INT and DTYPE_FLOAT.
           // For DTYPE_FLOAT you should generate an OP_FADD instruction.
+	res = make_temp (symtab, DTYPE_FLOAT); //this is what I added, although I am not completely sure I have not been able to access VM
+      itab_instruction_add (itab, OP_FADD, res->addr, $1->addr, $3->addr); //this is what I added, although I am not completely sure 
         }
         $$ = res;
         #ifdef _SMP_DEBUG_
@@ -178,6 +180,7 @@ a_term : a_term T_MUL a_fact
           exit (1);
         }
         // TASK: Complete support for OP_DIV and OP_FDIV. See OP_ADD and OP_FADD code above.
+	
         symbol_t * res;
         if ($1->datatype == DTYPE_INT)
         {
