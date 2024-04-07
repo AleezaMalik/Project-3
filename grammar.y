@@ -198,6 +198,11 @@ a_term : a_term T_MUL a_fact
           res = make_temp (symtab, $1->datatype);
           itab_instruction_add (itab, OP_DIV, res->addr, $1->addr, $3->addr);
         }
+	if ($1->datatype == DTYPE_FLOAT)
+        {
+          res = make_temp (symtab, $1->datatype);
+          itab_instruction_add (itab, OP_FDIV, res->addr, $1->addr, $3->addr);
+        }
         $$ = res;
         
       }
